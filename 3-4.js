@@ -1,9 +1,3 @@
-//方向指定
-var DIR_LEFT  = 0;
-var DIR_RIGHT = 1;
-var DIR_UP    = 2;
-var DIR_DOWN  = 3;
-
 enchant();
 window.onload = function() {
     //ゲームオブジェクトの生成
@@ -11,24 +5,32 @@ window.onload = function() {
     game.fps = 16;
     
     //画像の読み込み
-    game.preload('C:\Users\higurashi\Documents\GitHub\ka', 'C:\Users\higurashi\Documents\GitHub\hae','C:\Users\higurashi\Documents\GitHub\G','C:\Users\higurashi\Documents\GitHub\hati','C:\Users\higurashi\Documents\GitHub\ti1','C:\Users\higurashi\Documents\GitHub\ti2');
-    
+    game.preload('ka.png','hae16.png','G.png','hati.png','ti.png','ti2.png');
+
     //ロード完了時に呼ばれる
     game.onload = function() {
+        
         //スプライトの生成
         var fly = new Sprite(16, 16);
-        fly.image = game.assets['C:\Users\higurashi\Documents\GitHub\hae'];
-        fly.x = 160 - 16;
-        fly.y = 160 - 16;
-        game.rootScene.addChild(fly);
+        fly.image = game.assets['hae16.png'];
         
-        //スプライトの定期処理
-        //fly.tl.rotateTo(60, 2,)
-            
-            
-            
-        };
-    
+        game.rootScene.addEventListener('enterframe',function(){
+            //ゲームを進行させる
+               //ランダムに敵キャラを登場させる
+               fly.x = Math.random()*320; 
+               fly.y = Math.random()*320;
+                                        
+        game.rootScene.addChild(fly); 
+        });
+        fly.onenterframe = function() {
+            this.scale(1.01, 1.01);
+        }
+        
+        fly.addEventListener(Event.TOUCH_START, function(e){
+            alert("kk")
+            game.rootScene.removeChild(fly);
+        });
+    }
     //ゲームの開始
     game.start();
 };
