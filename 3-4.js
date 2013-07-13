@@ -1,36 +1,33 @@
 enchant();
+var game;
 window.onload = function() {
     //ゲームオブジェクトの生成
-    var game = new Game(320, 320);
-    game.fps = 16;
-    
+    game = new Game(320, 320);
+    game.fps = 16;    
     //画像の読み込み
-    game.preload('ka.png','hae16.png','G.png','hati.png','ti.png','ti2.png');
+    game.preload('ka12.png','hae16.png','G36.png','hati36.png','ti.png','ti2.png');
 
     //ロード完了時に呼ばれる
-    game.onload = function() {
-        
-        //スプライトの生成
-        var fly = new Sprite(16, 16);
-        fly.image = game.assets['hae16.png'];
-        
-        game.rootScene.addEventListener('enterframe',function(){
-            //ゲームを進行させる
-               //ランダムに敵キャラを登場させる
-               fly.x = Math.random()*320; 
-               fly.y = Math.random()*320;
-                                        
-        game.rootScene.addChild(fly); 
-        });
-        fly.onenterframe = function() {
-            this.scale(1.01, 1.01);
+    game.onload = function() {}
+    game.rootScene.addEventListener('enterframe',function(){
+        if(rand(100) <10){
+            var x = rand(320);
+            var y = rand(320);
+            var fly = new Fly(x, y);
         }
-        
-        fly.addEventListener(Event.TOUCH_START, function(e){
-            alert("kk")
-            game.rootScene.removeChild(fly);
-        });
-    }
+    });
     //ゲームの開始
     game.start();
 };
+var Fly = Class.create(Sprite,{
+    initialize:function(x,y){
+        enchant.Sprite.call(this,16,16);
+        this.image = game.assets['hae16.png'];
+        this.x = x;
+        this.y = y;
+        game.rootScene.addChild(this);
+    },
+});
+function rand(num){
+    return Math.floor(Math.random() * num);
+}
