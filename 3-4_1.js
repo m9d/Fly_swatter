@@ -19,25 +19,26 @@ window.onload = function() {
             this.image = game.assets['hae16.png'];
             this.x = x;
             this.y = y;
-            this.addEventListener(Event.TOUCH_START,function(){
+            this.addEventListener(Event.TOUCH_START,function(e){
+                new Effect(e.x - 18, e.y- 18);
                 game.rootScene.removeChild(this);
             });
             game.rootScene.addChild(this);
         }
         });
     
+    var Effect = Class.create(Sprite,{
+        initialize:function(x,y){
+            Sprite.call(this,36,36);
+            this.image = game.assets['ti.png'];
+                this.x = x;
+                this.y = y;
+                game.rootScene.addChild(this);
+        }
+    });
+    
     //ロード完了時に呼ばれる
     game.onload = function(){
-        /*var effect = new Sprite(36, 36);
-            effect.image = game.assets['ti.png'];
-            effect.addEventListener(Event.TOUCH_START,function(e){
-                effect.x = e.x;
-                effect.y = e.y;
-                effect
-                game.rootScene.addChild(effect);
-            });
-            game.rootScene.addChild(effect);
-        }*/
         game.addEventListener(Event.ENTER_FRAME,function(){
         game.tick++;
         if(game.tick % time == 0){
