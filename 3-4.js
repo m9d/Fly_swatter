@@ -10,7 +10,7 @@ window.onload = function() {
     //ロード完了時に呼ばれる
     game.onload = function() {}
     game.rootScene.addEventListener('enterframe',function(){
-        if(rand(100) <10){
+        if(rand(100) <5){
             var x = rand(320);
             var y = rand(320);
             var fly = new Fly(x, y);
